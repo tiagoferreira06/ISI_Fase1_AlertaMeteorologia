@@ -15,27 +15,37 @@ O sistema foi desenvolvido no âmbito da unidade curricular **Integração de Si
 
 ## 📁 Estrutura de Ficheiros
 
-### 📄 Documentação
+## 📄 Documentação
+- [documentation/Relatorio_ISI_Fase_1.pdf](documentation/Relatorio_ISI_Fase_1.pdf) — Relatório final do projeto
 
-documentation/Relatorio_ISI_Fase_1.pdf → Relatório final do projeto
+---
 
-### 🔄 Transformações ETL — Pentaho
+## 🔄 Transformações ETL
 
-transformations/T1_Extrair_Previsoes_IPMA.ktr → Extração de dados da API IPMA
-transformations/T2_Validacoes_REGEX.ktr → Validação e limpeza de dados (Regex)
-transformations/T3.ktr → Cálculo de alertas e relatórios
+### Pentaho — Transformações
+- [transformations/T1_Extrair_Previsoes_IPMA.ktr](transformations/T1_Extrair_Previsoes_IPMA.ktr) — Extração de dados da API IPMA  
+- [transformations/T2_Validacoes_REGEX.ktr](transformations/T2_Validacoes_REGEX.ktr) — Validação e limpeza de dados (Regex)  
+- [transformations/T3.ktr](transformations/T3.ktr) — Cálculo de alertas e relatórios
 
-### 🧩 Jobs
+### Pentaho — Job
+- [jobs/JOB_Principal.kjb](jobs/JOB_Principal.kjb) — Job principal (execução sequencial)
 
-jobs/JOB_Principal.kjb → Job principal (execução sequencial)
+## 🗄️ Base de Dados
 
-### 🧰 Node-RED
+- [database/Database.sql](database/Database.sql) — Script principal de criação da base de dados  
+- [database/alertas_meteorologicos.sql](database/alertas_meteorologicos.sql) — Tabela de alertas meteorológicos  
+- [database/previsoes_meteorologicas.sql](database/previsoes_meteorologicas.sql) — Tabela de previsões meteorológicas  
+- [database/resumo_cidades.sql](database/resumo_cidades.sql) — Tabela de resumo por cidade  
+- [database/logs.sql](database/logs.sql) — Registo de execuções e logs de processos  
+- [database/schemameteorologia.sql](database/schemameteorologia.sql) — Estrutura do esquema meteorologia  
+- [database/schemaregistos.sql](database/schemaregistos.sql) — Estrutura do esquema de registos
 
-node-red/weatheralerts.json → Interface de alertas meteorológicos
-node-red/weatherforecasts.json → Interface de previsões meteorológicas
-node-red/citiessummary.json → Resumo de cidades e médias
-node-red/database.json → Ligação à base de dados PostgreSQL
 
+## 🧰 Node-RED
+- [node-red/weatheralerts.json](node-red/weatheralerts.json) — Interface de alertas meteorológicos  
+- [node-red/weatherforecasts.json](node-red/weatherforecasts.json) — Interface de previsões meteorológicas  
+- [node-red/citiessummary.json](node-red/citiessummary.json) — Resumo de cidades e médias  
+- [node-red/database.json](node-red/database.json) — Ligação à base de dados PostgreSQL
 
 ---
 
