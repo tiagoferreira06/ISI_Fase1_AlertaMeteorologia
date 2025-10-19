@@ -1,26 +1,26 @@
 # 🌦️ ISI Fase 1 — Sistema de Alertas Meteorológicos
 
-## 👤 Identificação do Autor
+## Identificação do Autor
 **Nome:** Tiago Nunes Ferreira  
 **Número:** *27980*  
 
 ---
 
-## 📘 Descrição do Projeto
+## Descrição do Projeto
 Este projeto implementa um sistema **ETL (Extract, Transform, Load)** para recolha, validação, análise e visualização de **dados meteorológicos** obtidos através da **API do IPMA**.  
 
 O sistema foi desenvolvido no âmbito da unidade curricular **Integração de Sistemas de Informação (ISI)** e tem como principal objetivo gerar **alertas automáticos** baseados em condições meteorológicas críticas, armazenando os resultados numa base de dados **PostgreSQL** e apresentando-os num **dashboard Node-RED**.
 
 ---
 
-## 📁 Estrutura de Ficheiros
+## Estrutura de Ficheiros
 
-## 📄 Documentação
+## Documentação
 - [documentation/Relatorio_ISI_Fase_1.pdf](documentation/Relatorio_ISI_Fase_1.pdf) — Relatório final do projeto
 
 ---
 
-## 🔄 Transformações ETL
+## Transformações ETL
 
 ### Pentaho — Transformações
 - [transformations/T1_Extrair_Previsoes_IPMA.ktr](transformations/T1_Extrair_Previsoes_IPMA.ktr) — Extração de dados da API IPMA  
@@ -30,7 +30,7 @@ O sistema foi desenvolvido no âmbito da unidade curricular **Integração de Si
 ### Pentaho — Job
 - [jobs/JOB_Principal.kjb](jobs/JOB_Principal.kjb) — Job principal (execução sequencial)
 
-## 🗄️ Base de Dados
+## Base de Dados
 
 - [database/Database.sql](database/Database.sql) — Script principal de criação da base de dados  
 - [database/alertas_meteorologicos.sql](database/alertas_meteorologicos.sql) — Tabela de alertas meteorológicos  
@@ -41,15 +41,16 @@ O sistema foi desenvolvido no âmbito da unidade curricular **Integração de Si
 - [database/schemaregistos.sql](database/schemaregistos.sql) — Estrutura do esquema de registos
 
 
-## 🧰 Node-RED
+## Node-RED
 - [node-red/weatheralerts.json](node-red/weatheralerts.json) — Interface de alertas meteorológicos  
 - [node-red/weatherforecasts.json](node-red/weatherforecasts.json) — Interface de previsões meteorológicas  
 - [node-red/citiessummary.json](node-red/citiessummary.json) — Resumo de cidades e médias  
 - [node-red/database.json](node-red/database.json) — Ligação à base de dados PostgreSQL
 
+
 ---
 
-## 🧠 Objetivos do Projeto
+## Objetivos do Projeto
 - Extrair previsões meteorológicas da **API do IPMA**.  
 - Validar e normalizar os dados meteorológicos.  
 - Calcular automaticamente **níveis de alerta** com base em temperatura e precipitação.  
@@ -58,7 +59,7 @@ O sistema foi desenvolvido no âmbito da unidade curricular **Integração de Si
 
 ---
 
-## 🧩 Ferramentas Utilizadas
+## Ferramentas Utilizadas
 
 | Software | Versão | Função |
 |-----------|---------|--------|
@@ -72,7 +73,7 @@ O sistema foi desenvolvido no âmbito da unidade curricular **Integração de Si
 
 ## 🚀 Como Executar o Projeto
 
-### 1️⃣ Pré-requisitos
+### 1 Pré-requisitos
 
 **Instalar PostgreSQL**
 ```bash
@@ -86,7 +87,7 @@ npm install -g node-red
 npm install node-red-contrib-postgres
 npm install node-red-dashboard
 
-2️⃣ Configuração
+2 - Configuração
 
 Editar as credenciais da base de dados no Node-RED e no Pentaho.
 
@@ -94,7 +95,7 @@ Confirmar que o PostgreSQL está ativo na porta padrão 5432.
 
 Importar os fluxos (node-red/*.json) no Node-RED.
 
-3️⃣ Execução do Pipeline ETL
+3 - Execução do Pipeline ETL
 
 Abrir o Spoon (interface gráfica do Pentaho).
 
@@ -104,11 +105,13 @@ Verificar os logs de execução no schema registos.
 
 Visualizar os resultados no Node-RED Dashboard (http://localhost:1880).
 
-📹 Demonstração em Vídeo
+```
 
-📱 QR Code: disponível no relatório (documentation/Relatorio_ISI_Fase_1.pdf)
+Demonstração em Vídeo
 
-🌐 Fonte dos Dados
+QR Code: disponível no relatório (documentation/Relatorio_ISI_Fase_1.pdf)
+
+Fonte dos Dados
 
 API: https://api.ipma.pt
 
@@ -116,10 +119,10 @@ Instituto Português do Mar e da Atmosfera (IPMA)
 
 Dados meteorológicos diários e previsões por cidade.
 
-👨‍💻 Autor
+Autor
 
 Tiago Nunes Ferreira
-Engenharia de Sistemas Informáticos — ISEL
-📧 tiagoferr1402@gmail.com
+Engenharia de Sistemas Informáticos — LESI
+tiagoferr1402@gmail.com
 
 
