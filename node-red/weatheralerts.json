@@ -1,0 +1,120 @@
+[
+    {
+        "id": "85af3d91256767cf",
+        "type": "tab",
+        "label": "Alertas Meteorológicos",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "b7e1505debc12590",
+        "type": "inject",
+        "z": "85af3d91256767cf",
+        "name": "Atualizar Alertas",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "once": true,
+        "onceDelay": 0.1,
+        "payloadType": "date",
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "5f41579b8d3a13f8"
+            ]
+        ]
+    },
+    {
+        "id": "5f41579b8d3a13f8",
+        "type": "postgresql",
+        "z": "85af3d91256767cf",
+        "name": "Query Alertas",
+        "query": "SELECT nome_cidade_normalizado AS cidade, regiao, data_previsao, nivel_alerta, tipo_alerta, score_risco, prioridade, precipitacao_prob, temp_max, temp_min, descricao_tempo FROM meteorologia.alertas_meteorologicos ORDER BY data_previsao DESC;",
+        "postgreSQLConfig": "postgres_config",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 380,
+        "y": 80,
+        "wires": [
+            [
+                "afeb2d57c03e5594"
+            ]
+        ]
+    },
+    {
+        "id": "afeb2d57c03e5594",
+        "type": "ui_table",
+        "z": "85af3d91256767cf",
+        "group": "eb5c6c5c02cbc4bb",
+        "name": "Tabela de Alertas",
+        "order": 1,
+        "width": "24",
+        "height": "10",
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 670,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "postgres_config",
+        "type": "postgreSQLConfig",
+        "name": "PostgreSQL Local",
+        "host": "localhost",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "meteo_db",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "postgres",
+        "userFieldType": "str",
+        "password": "1234",
+        "passwordFieldType": "str"
+    },
+    {
+        "id": "eb5c6c5c02cbc4bb",
+        "type": "ui_group",
+        "name": "Alertas Meteorológicos",
+        "tab": "49b5f785bcc327bc",
+        "order": 1,
+        "disp": true,
+        "width": "24",
+        "collapse": false,
+        "className": "no-background"
+    },
+    {
+        "id": "49b5f785bcc327bc",
+        "type": "ui_tab",
+        "name": "Alertas",
+        "icon": "warning",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "715eec1564a0fafc",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-postgresql": "0.15.4",
+            "node-red-node-ui-table": "0.4.5",
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]

@@ -1,0 +1,59 @@
+[
+    {
+        "id": "97f1f7437acc1ea5",
+        "type": "tab",
+        "label": "Importar Base de Dados",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6d063c6031cc33fc",
+        "type": "postgresql",
+        "z": "97f1f7437acc1ea5",
+        "name": "",
+        "query": "SELECT * FROM ;",
+        "postgreSQLConfig": "postgres_config",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 230,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "postgres_config",
+        "type": "postgreSQLConfig",
+        "name": "PostgreSQL Local",
+        "host": "localhost",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "meteo_db",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "postgres",
+        "userFieldType": "str",
+        "password": "1234",
+        "passwordFieldType": "str"
+    },
+    {
+        "id": "64087c0930508aec",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-postgresql": "0.15.4"
+        }
+    }
+]

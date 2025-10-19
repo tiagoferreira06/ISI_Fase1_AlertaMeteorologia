@@ -1,0 +1,160 @@
+[
+    {
+        "id": "108aa6f5c017e6c5",
+        "type": "tab",
+        "label": "Resumo de Cidades",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "26db9dd8733713f3",
+        "type": "inject",
+        "z": "108aa6f5c017e6c5",
+        "name": "Atualizar Dados",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "1966bef7c8997bbf"
+            ]
+        ]
+    },
+    {
+        "id": "1966bef7c8997bbf",
+        "type": "postgresql",
+        "z": "108aa6f5c017e6c5",
+        "name": "Query Resumo",
+        "query": "SELECT nome_cidade_normalizado AS cidade, regiao, temp_media_cidade AS temp_media, temp_min_cidade AS temp_min, temp_max_cidade AS temp_max, score_medio, score_maximo, total_alertas_criticos, total_alertas_altos, total_alertas_medios, risco_cidade FROM meteorologia.resumo_cidades ORDER BY nome_cidade_normalizado;",
+        "postgreSQLConfig": "postgres_config",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 390,
+        "y": 100,
+        "wires": [
+            [
+                "2c99bf5b30bb725e",
+                "93a238bfb7f4634f"
+            ]
+        ]
+    },
+    {
+        "id": "2c99bf5b30bb725e",
+        "type": "ui_table",
+        "z": "108aa6f5c017e6c5",
+        "group": "3f492cf4101d5cb8",
+        "name": "Tabela Resumo de Cidades",
+        "order": 1,
+        "width": "24",
+        "height": "10",
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 670,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "93a238bfb7f4634f",
+        "type": "function",
+        "z": "108aa6f5c017e6c5",
+        "name": "Preparar Dados Chart",
+        "func": "msg.payload = msg.payload.map(r => ({ cidade: r.cidade, max: r.temp_max, media: r.temp_media, min: r.temp_min }));\nreturn msg;",
+        "outputs": 1,
+        "x": 670,
+        "y": 140,
+        "wires": [
+            [
+                "7b3d61872bc480da"
+            ]
+        ]
+    },
+    {
+        "id": "7b3d61872bc480da",
+        "type": "ui_template",
+        "z": "108aa6f5c017e6c5",
+        "group": "3f492cf4101d5cb8",
+        "name": "Gráfico de Temperaturas",
+        "order": 2,
+        "width": "24",
+        "height": "12",
+        "format": "<div style=\"width:100%; height:450px;\">\n  <canvas id=\"graficoTemp\"></canvas>\n</div>\n<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>\n<script>\n(function(scope) {\n  scope.$watch('msg', function(msg) {\n    if (!msg || !msg.payload) return;\n    const cidades = msg.payload.map(r => r.cidade);\n    const maximas = msg.payload.map(r => r.max);\n    const medias = msg.payload.map(r => r.media);\n    const minimas = msg.payload.map(r => r.min);\n    const ctx = document.getElementById('graficoTemp').getContext('2d');\n    if (scope.chart) scope.chart.destroy();\n    scope.chart = new Chart(ctx, {\n      type: 'bar',\n      data: { labels: cidades, datasets: [\n          { label: 'Máx (°C)', data: maximas, backgroundColor: '#e74c3c' },\n          { label: 'Méd (°C)', data: medias, backgroundColor: '#3498db' },\n          { label: 'Mín (°C)', data: minimas, backgroundColor: '#27ae60' }\n        ] },\n      options: { responsive: true, scales: { y: { beginAtZero: true } }, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Temperaturas por Cidade (°C)' } } }\n    });\n  });\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 930,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "postgres_config",
+        "type": "postgreSQLConfig",
+        "name": "PostgreSQL Local",
+        "host": "localhost",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "meteo_db",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "postgres",
+        "userFieldType": "str",
+        "password": "1234",
+        "passwordFieldType": "str"
+    },
+    {
+        "id": "3f492cf4101d5cb8",
+        "type": "ui_group",
+        "name": "Resumo de Cidades",
+        "tab": "98c23dd8e783da57",
+        "order": 1,
+        "disp": true,
+        "width": "24",
+        "collapse": false,
+        "className": "no-background"
+    },
+    {
+        "id": "98c23dd8e783da57",
+        "type": "ui_tab",
+        "name": "Resumo de Cidades",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "02754c60110f2032",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-postgresql": "0.15.4",
+            "node-red-node-ui-table": "0.4.5",
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]

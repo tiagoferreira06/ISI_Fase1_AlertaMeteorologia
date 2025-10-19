@@ -1,0 +1,208 @@
+[
+    {
+        "id": "4f1c55b86991af4e",
+        "type": "tab",
+        "label": "Previsões Meteorológicas",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "258cf34cee12cd33",
+        "type": "inject",
+        "z": "4f1c55b86991af4e",
+        "name": "Atualizar Previsões",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "8489bcf0d8eb9cf9"
+            ]
+        ]
+    },
+    {
+        "id": "8489bcf0d8eb9cf9",
+        "type": "postgresql",
+        "z": "4f1c55b86991af4e",
+        "name": "Query Previsões",
+        "query": "SELECT nome_cidade_normalizado AS cidade, data_previsao, temp_media, temp_min, temp_max, precipitacao_prob, descricao_tempo, vento_direcao, tipo_previsao FROM meteorologia.previsoes_meteorologicas ORDER BY data_previsao DESC;",
+        "postgreSQLConfig": "postgres_config",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 390,
+        "y": 80,
+        "wires": [
+            [
+                "174411443f893d0e"
+            ]
+        ]
+    },
+    {
+        "id": "174411443f893d0e",
+        "type": "ui_table",
+        "z": "4f1c55b86991af4e",
+        "group": "76775a08e33c3781",
+        "name": "Tabela de Previsões",
+        "order": 1,
+        "width": "24",
+        "height": "10",
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 670,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a94615d0514d3a00",
+        "type": "postgresql",
+        "z": "4f1c55b86991af4e",
+        "name": "Query Alertas por Região",
+        "query": "SELECT regiao, nivel_alerta, COUNT(*) AS total FROM meteorologia.alertas_meteorologicos GROUP BY regiao, nivel_alerta ORDER BY regiao;",
+        "postgreSQLConfig": "postgres_config",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "466e6f0656ca75a6"
+            ]
+        ]
+    },
+    {
+        "id": "466e6f0656ca75a6",
+        "type": "function",
+        "z": "4f1c55b86991af4e",
+        "name": "Preparar Dados Chart",
+        "func": "let data = msg.payload;\nlet regioes = [...new Set(data.map(d => d.regiao))];\nlet niveis = [...new Set(data.map(d => d.nivel_alerta))];\n\nlet cores = {\n    'NORMAL': '#2ecc71',\n    'MÉDIO': '#f1c40f',\n    'ALTO': '#e67e22',\n    'CRÍTICO': '#e74c3c'\n};\n\nlet datasets = niveis.map(n => ({\n    label: n,\n    data: regioes.map(r => {\n        let reg = data.find(d => d.regiao === r && d.nivel_alerta === n);\n        return reg ? reg.total : 0;\n    }),\n    backgroundColor: cores[n] || '#95a5a6'\n}));\n\nmsg.payload = { labels: regioes, datasets: datasets };\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 180,
+        "wires": [
+            [
+                "75212b741394aece"
+            ]
+        ]
+    },
+    {
+        "id": "75212b741394aece",
+        "type": "ui_template",
+        "z": "4f1c55b86991af4e",
+        "group": "76775a08e33c3781",
+        "name": "Gráfico de Alertas por Região",
+        "order": 2,
+        "width": "24",
+        "height": "12",
+        "format": "<div style=\"width:100%; height:450px;\">\n  <canvas id=\"chartAlertasRegiao\"></canvas>\n</div>\n<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>\n<script>\n(function(scope) {\n  scope.$watch('msg', function(msg) {\n    if (!msg || !msg.payload) return;\n\n    const ctx = document.getElementById('chartAlertasRegiao').getContext('2d');\n    if (scope.chart) scope.chart.destroy();\n\n    scope.chart = new Chart(ctx, {\n      type: 'bar',\n      data: msg.payload,\n      options: {\n        responsive: true,\n        plugins: {\n          legend: { position: 'top' },\n          title: { display: true, text: 'Distribuição de Alertas por Região e Nível' }\n        },\n        scales: {\n          x: { stacked: true },\n          y: { stacked: true, beginAtZero: true }\n        }\n      }\n    });\n  });\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 710,
+        "y": 300,
+        "wires": [
+            []
+        ],
+        "icon": "font-awesome/fa-thermometer-three-quarters"
+    },
+    {
+        "id": "884ae10a5d51c5c8",
+        "type": "inject",
+        "z": "4f1c55b86991af4e",
+        "name": "Atualizar Gráfico Região",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "a94615d0514d3a00"
+            ]
+        ]
+    },
+    {
+        "id": "postgres_config",
+        "type": "postgreSQLConfig",
+        "name": "PostgreSQL Local",
+        "host": "localhost",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "meteo_db",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "postgres",
+        "userFieldType": "str",
+        "password": "1234",
+        "passwordFieldType": "str"
+    },
+    {
+        "id": "76775a08e33c3781",
+        "type": "ui_group",
+        "name": "Previsões Meteorológicas",
+        "tab": "f7638c28eb01db46",
+        "order": 1,
+        "disp": true,
+        "width": "24",
+        "collapse": false,
+        "className": "no-background"
+    },
+    {
+        "id": "f7638c28eb01db46",
+        "type": "ui_tab",
+        "name": "Previsões",
+        "icon": "cloud",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "30ccc05cbcc60e53",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-postgresql": "0.15.4",
+            "node-red-node-ui-table": "0.4.5",
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
