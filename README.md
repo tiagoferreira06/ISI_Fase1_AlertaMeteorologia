@@ -2,7 +2,8 @@
 
 ## Identificação do Autor
 **Nome:** Tiago Nunes Ferreira  
-**Número:** *27980*  
+**Número:** *27980*
+**Email:** tiagoferr1402@gmail.com  
 
 ---
 
@@ -121,13 +122,5 @@ API: https://api.ipma.pt
 Instituto Português do Mar e da Atmosfera (IPMA)
 
 Dados meteorológicos diários e previsões por cidade.
-
----
-
-## Autor
-
-Tiago Nunes Ferreira
-Engenharia de Sistemas Informáticos — LESI
-tiagoferr1402@gmail.com
 
 
