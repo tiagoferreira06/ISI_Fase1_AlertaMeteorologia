@@ -111,7 +111,9 @@ Visualizar os resultados no Node-RED Dashboard (http://localhost:1880).
 
 ## Demonstração em Vídeo
 
-QR Code:
+**Link para video:** https://youtu.be/8R6AO1bnKuY
+
+**QR Code:**
 [qrcode/Projeto_ISI_Demonstracao_Tiago_Ferreira.png](qrcode/Projeto_ISI_Demonstracao_Tiago_Ferreira.png)
 
 ---
