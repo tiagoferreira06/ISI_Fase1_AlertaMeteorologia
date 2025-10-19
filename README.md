@@ -107,12 +107,14 @@ Visualizar os resultados no Node-RED Dashboard (http://localhost:1880).
 
 ```
 
-Demonstração em Vídeo
+## Demonstração em Vídeo
 
 QR Code:
 [qrcode/Projeto_ISI_Demonstracao_Tiago_Ferreira.png](qrcode/Projeto_ISI_Demonstracao_Tiago_Ferreira.png)
 
-Fonte dos Dados
+---
+
+## Fonte dos Dados
 
 API: https://api.ipma.pt
 
@@ -120,7 +122,9 @@ Instituto Português do Mar e da Atmosfera (IPMA)
 
 Dados meteorológicos diários e previsões por cidade.
 
-Autor
+---
+
+## Autor
 
 Tiago Nunes Ferreira
 Engenharia de Sistemas Informáticos — LESI
