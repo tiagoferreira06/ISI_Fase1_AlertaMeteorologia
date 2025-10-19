@@ -18,7 +18,7 @@ O sistema foi desenvolvido no âmbito da unidade curricular **Integração de Si
 ## Estrutura de Ficheiros
 
 ## Documentação
-- [documentation/Relatorio_ISI_Fase_1.pdf](documentation/Relatorio_ISI_Fase_1.pdf) — Relatório final do projeto
+- [documentation/27980_doc.pdf](documentation/Relatorio_ISI_Fase_1.pdf) — Relatório final do projeto
 
 ---
 
