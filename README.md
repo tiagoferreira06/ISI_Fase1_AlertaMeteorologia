@@ -1,4 +1,4 @@
-# 🌦️ ISI Fase 1 — Sistema de Alertas Meteorológicos
+# ISI Fase 1 — Sistema de Alertas Meteorológicos
 
 ## Identificação do Autor
 **Nome:** Tiago Nunes Ferreira  
@@ -71,7 +71,7 @@ O sistema foi desenvolvido no âmbito da unidade curricular **Integração de Si
 
 ---
 
-## 🚀 Como Executar o Projeto
+## Como Executar o Projeto
 
 ### 1 Pré-requisitos
 
@@ -109,7 +109,8 @@ Visualizar os resultados no Node-RED Dashboard (http://localhost:1880).
 
 Demonstração em Vídeo
 
-QR Code: disponível no relatório (documentation/Relatorio_ISI_Fase_1.pdf)
+QR Code:
+[qrcode/Projeto_ISI_Demonstracao_Tiago_Ferreira.png](qrcode/Projeto_ISI_Demonstracao_Tiago_Ferreira.png)
 
 Fonte dos Dados
 
